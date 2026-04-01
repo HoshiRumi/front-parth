@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&family=Nunito:wght@300;400;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 270 10% 4%;
+    --foreground: 320 10% 90%;
+
+    --card: 270 10% 7%;
+    --card-foreground: 320 10% 90%;
+
+    --popover: 270 10% 7%;
+    --popover-foreground: 320 10% 90%;
+
+    --primary: 330 100% 65%;
+    --primary-foreground: 270 10% 4%;
+
+    --secondary: 270 10% 10%;
+    --secondary-foreground: 320 10% 90%;
+
+    --muted: 270 10% 12%;
+    --muted-foreground: 320 10% 55%;
+
+    --accent: 330 100% 65%;
+    --accent-foreground: 270 10% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 330 30% 18%;
+    --input: 270 10% 12%;
+    --ring: 330 100% 65%;
+
+    --radius: 0.25rem;
+
+    /* Custom MiSide tokens */
+    --horror-pink: 330 100% 65%;
+    --horror-crimson: 350 80% 45%;
+    --horror-dark: 270 10% 4%;
+    --horror-glitch-cyan: 180 100% 60%;
+    --horror-surface: 270 10% 8%;
+
+    --glow-pink: 0 0 20px hsl(330 100% 65% / 0.6), 0 0 60px hsl(330 100% 65% / 0.3);
+    --glow-text: 0 0 10px hsl(330 100% 65% / 0.8);
+
+    --font-horror: 'Creepster', cursive;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-body: 'Nunito', sans-serif;
+
+    --sidebar-background: 270 10% 6%;
+    --sidebar-foreground: 320 10% 90%;
+    --sidebar-primary: 330 100% 65%;
+    --sidebar-primary-foreground: 270 10% 4%;
+    --sidebar-accent: 270 10% 10%;
+    --sidebar-accent-foreground: 320 10% 90%;
+    --sidebar-border: 330 30% 18%;
+    --sidebar-ring: 330 100% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    cursor: default;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--horror-pink));
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .font-horror {
+    font-family: var(--font-horror);
+  }
+  .font-mono-horror {
+    font-family: var(--font-mono);
+  }
+  .text-glow {
+    text-shadow: var(--glow-text);
+  }
+  .box-glow {
+    box-shadow: var(--glow-pink);
+  }
+  .border-glow {
+    box-shadow: 0 0 8px hsl(var(--horror-pink) / 0.5), inset 0 0 8px hsl(var(--horror-pink) / 0.1);
+  }
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0%, 90%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  2% { clip-path: inset(10% 0 60% 0); transform: translate(-4px, 2px); }
+  4% { clip-path: inset(50% 0 20% 0); transform: translate(4px, -2px); }
+  6% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 1px); }
+  8% { clip-path: inset(70% 0 5% 0); transform: translate(2px, -1px); }
+}
+
+@keyframes glitch2 {
+  0%, 88%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  2% { clip-path: inset(60% 0 10% 0); transform: translate(4px, -2px); color: hsl(180 100% 60%); }
+  4% { clip-path: inset(20% 0 55% 0); transform: translate(-4px, 2px); color: hsl(0 100% 60%); }
+  6% { clip-path: inset(80% 0 2% 0); transform: translate(2px, -1px); }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px hsl(330 100% 65% / 0.4), 0 0 30px hsl(330 100% 65% / 0.2); }
+  50% { box-shadow: 0 0 20px hsl(330 100% 65% / 0.8), 0 0 60px hsl(330 100% 65% / 0.4); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  color: hsl(var(--horror-pink));
+}
+.glitch-text::before {
+  animation: glitch 4s infinite;
+  color: hsl(180 100% 60%);
+  z-index: -1;
+}
+.glitch-text::after {
+  animation: glitch2 4s infinite 0.2s;
+  color: hsl(0 100% 60%);
+  z-index: -2;
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(var(--background) / 0.15) 2px,
+    hsl(var(--background) / 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-flicker { animation: flicker 3s infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
